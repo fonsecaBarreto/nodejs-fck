@@ -1,61 +1,139 @@
 "use strict";
-var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
-}) : (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    o[k2] = m[k];
-}));
-var __exportStar = (this && this.__exportStar) || function(m, exports) {
-    for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-__exportStar(require("./ISchemaBuilder"), exports);
-class AppSchemaBuilder {
-    constructor() {
-        this.properties = {};
-        this.required = [];
-        this.number = (key) => this.pushProperty(key, 'number');
-        this.boolean = (key) => this.pushProperty(key, 'boolean');
-        this.date = (key) => this.pushProperty(key, 'date');
-        this.hour = (key) => this.pushProperty(key, 'hour');
-        this.array = (key) => this.pushProperty(key, 'array');
-        this.json = (key) => this.pushProperty(key, 'json');
-        this.cep = (key) => this.pushProperty(key, 'cep');
-        this.uuid = (key) => this.pushProperty(key, 'uuid');
-        this.string = (key) => this.pushProperty(key, 'string');
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var _exportNames = {};
+exports["default"] = void 0;
+
+var _ISchemaBuilder = require("./ISchemaBuilder");
+
+Object.keys(_ISchemaBuilder).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _ISchemaBuilder[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function get() {
+      return _ISchemaBuilder[key];
     }
-    setSpecs(key) {
-        const optional = () => {
-            this.required.splice(this.required.indexOf(key), 1);
-            return this.setSpecs(key);
-        };
-        const description = (value) => {
-            this.properties[key] = { ...this.properties[key], description: value };
-            return this.setSpecs(key);
-        };
-        const actions = { optional, description };
-        /*         if(!this.required.includes(key)) delete actions.optional;
-                if(this.properties?.[key]?.description) delete actions.description; */
-        return actions;
-    }
-    pushProperty(key, type) {
-        this.properties[key] = { type };
-        this.required.push(key);
-        return this.setSpecs(key);
-    }
-    getSchema() {
-        return ({
-            type: 'object',
-            properties: this.properties,
-            required: this.required
+  });
+});
+
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+var AppSchemaBuilder = /*#__PURE__*/function () {
+  function AppSchemaBuilder() {
+    var _this = this;
+
+    _classCallCheck(this, AppSchemaBuilder);
+
+    _defineProperty(this, "properties", {});
+
+    _defineProperty(this, "required", []);
+
+    _defineProperty(this, "number", function (key) {
+      return _this.pushProperty(key, 'number');
+    });
+
+    _defineProperty(this, "boolean", function (key) {
+      return _this.pushProperty(key, 'boolean');
+    });
+
+    _defineProperty(this, "date", function (key) {
+      return _this.pushProperty(key, 'date');
+    });
+
+    _defineProperty(this, "hour", function (key) {
+      return _this.pushProperty(key, 'hour');
+    });
+
+    _defineProperty(this, "array", function (key) {
+      return _this.pushProperty(key, 'array');
+    });
+
+    _defineProperty(this, "json", function (key) {
+      return _this.pushProperty(key, 'json');
+    });
+
+    _defineProperty(this, "cep", function (key) {
+      return _this.pushProperty(key, 'cep');
+    });
+
+    _defineProperty(this, "uuid", function (key) {
+      return _this.pushProperty(key, 'uuid');
+    });
+
+    _defineProperty(this, "string", function (key) {
+      return _this.pushProperty(key, 'string');
+    });
+  }
+
+  _createClass(AppSchemaBuilder, [{
+    key: "setSpecs",
+    value: function setSpecs(key) {
+      var _this2 = this;
+
+      var optional = function optional() {
+        _this2.required.splice(_this2.required.indexOf(key), 1);
+
+        return _this2.setSpecs(key);
+      };
+
+      var description = function description(value) {
+        _this2.properties[key] = _objectSpread(_objectSpread({}, _this2.properties[key]), {}, {
+          description: value
         });
+        return _this2.setSpecs(key);
+      };
+
+      var actions = {
+        optional: optional,
+        description: description
+      };
+      /*         if(!this.required.includes(key)) delete actions.optional;
+              if(this.properties?.[key]?.description) delete actions.description; */
+
+      return actions;
     }
-    static create(callback) {
-        const instace = new AppSchemaBuilder();
-        callback(instace);
-        return instace.getSchema();
+  }, {
+    key: "pushProperty",
+    value: function pushProperty(key, type) {
+      this.properties[key] = {
+        type: type
+      };
+      this.required.push(key);
+      return this.setSpecs(key);
     }
-}
-exports.default = AppSchemaBuilder;
-//# sourceMappingURL=SchemaBuilder.js.map
+  }, {
+    key: "getSchema",
+    value: function getSchema() {
+      return {
+        type: 'object',
+        properties: this.properties,
+        required: this.required
+      };
+    }
+  }], [{
+    key: "create",
+    value: function create(callback) {
+      var instace = new AppSchemaBuilder();
+      callback(instace);
+      return instace.getSchema();
+    }
+  }]);
+
+  return AppSchemaBuilder;
+}();
+
+exports["default"] = AppSchemaBuilder;

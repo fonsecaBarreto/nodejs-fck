@@ -1,0 +1,24 @@
+{
+    "compilerOptions": {
+        "outDir": "dist",
+        "module": "commonjs",
+        "target": "es2019",
+        "lib": ["es6"],      
+        "esModuleInterop": true,
+        "sourceMap": true,
+        "allowJs": true,
+        "strict": true,
+        "strictPropertyInitialization": false,
+        "baseUrl": ".",
+        "rootDirs": ["src", "tests"],
+        "paths": {
+            "@/*": [ "./src/*" ],
+            "@tests/*": [  "./tests/*"  ]
+        },
+    },
+    "typeRoots": [
+        "./@types",
+        "./node_modules/@types"
+    ],
+    "include": ["src", "tests"]
+}

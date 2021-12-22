@@ -1,26 +1,29 @@
 {
     "compilerOptions": {
         "outDir": "lib",
-        "target": "es2019",
-        "jsx": "react-jsx",     
         "module": "commonjs",
-        "moduleResolution": "node",
+        "target": "es2019", 
         "declaration": true,                             
         "declarationMap": true,                          
-        "sourceMap": true,                                                           
+        "sourceMap": true,  
+        "allowJs": true,                                                         
         "esModuleInterop": true,                          
         "strict": true,                                  
         "skipLibCheck": true,                            
+        "baseUrl": ".",
         "rootDirs": ["src", "tests"],
-        "baseUrl": "src",
         "paths": {
-            "@/*": [ "*" ],
-            "@tests/*": [  "../tests/*"  ]
+            "@/*": [ "./src/*" ],
+            "@tests/*": [  "./tests/*"  ]
         },
-        "allowJs": true,
-        "suppressImplicitAnyIndexErrors": true,
-        "allowSyntheticDefaultImports": true
+
+/*      "suppressImplicitAnyIndexErrors": true,
+        "allowSyntheticDefaultImports": true */
     },
+    "typeRoots": [
+        "./@types",
+        "./node_modules/@types"
+    ],
     "include": ["src", "tests"],
     "exclude": ["node_modules"]
 }

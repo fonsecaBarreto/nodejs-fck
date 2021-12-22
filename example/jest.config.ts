@@ -1,14 +1,15 @@
-module.exports = {
- 
-  roots: ['<rootDir>/tests', '<rootDir>/src'],
 
-  testTimeout: 90000,
-  
+export default {
+
   clearMocks: true,
 
   collectCoverage: true,
 
   coverageDirectory: "coverage",
+
+  roots: ['<rootDir>/tests', '<rootDir>/src'],
+  
+  testTimeout: 90000,
 
   transform: { '.+\\.ts$': 'ts-jest'},
 
@@ -20,12 +21,3 @@ module.exports = {
   }
   
 };
-
-
-
-
-  
-  
-    
-    
- 
