@@ -1,8 +1,6 @@
 
 import Schema from 'fck-schema-validator'
 
-
-
 async function main(){
 
     const s = Schema.Builder.create(b=>{
