@@ -1,13 +1,13 @@
 {
   "name": "fck-schema-validator",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "",
   "main": "lib/index.js",
   "types": "lib/types/index.d.ts",
   "license": "MIT",
   "private": false,
   "scripts": {
-    "build": "tsc -p tsconfig.json",
+    "build": "tsc -p tsconfig-build.json",
     "test": "jest --passWithNoTests --runInBand --no-cache --watch --silent"
   },
   "keywords": [],
@@ -31,8 +31,8 @@
     "uuid": "^8.3.2"
   },
   "peerDependencies": {
-    "uuid": "^8.3.2",
-    "email-validator": "^2.0.4"
+    "email-validator": "^2.0.4",
+    "uuid": "^8.3.2"
   },
   "files": [
     "/lib"

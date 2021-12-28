@@ -1,9 +1,8 @@
 
-import { validator, builder } from 'fck-schema-validator'
+import { Validator, builder } from 'fck-schema-validator'
 
 async function main(){
-
-
+    
    const s = builder.create(b=>{
         b.string("Nome").description("Nome"),
         b.string("age").description("Idade").optional
@@ -11,7 +10,7 @@ async function main(){
     })
     
     console.log("esse é o Eschema:", s)
-    const val = new validator()
+    const val = new Validator()
 
     const erros = await val.validate(s, {
         Nome:"Lucas Fonseca"
