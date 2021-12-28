@@ -1,7 +1,7 @@
-import { BaseSchema } from "../protocols";
+import { ValidationSchema } from "../protocols";
 
 export namespace SchemaValidator {
-      export type Schema = BaseSchema
+      export type Schema = ValidationSchema
       export interface Params extends Record<string, any> {}
       export interface Errors extends Record<string, string> {}
 }

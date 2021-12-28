@@ -2,7 +2,6 @@ import { SchemaBuilder  } from "./ISchemaBuilder";
 
 export default class AppSchemaBuilder implements SchemaBuilder {
 
- 
     private properties: SchemaBuilder.Properties = {};
     private required: string[]=[];
 

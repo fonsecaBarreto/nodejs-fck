@@ -25,7 +25,6 @@ describe("Schema builder", () =>{
      test("should return error if required fields were not filled", async () => {
           const { sut } = makeSut()
 
-
           const schema = builder.create( (s: SchemaBuilder) => {
                s.string("name")
                s.number("age")
@@ -37,8 +36,7 @@ describe("Schema builder", () =>{
                s.uuid("user_id")
           })  
 
-
-          const errors = await sut.validate(schema,{name:"Um Nome Aqui"})
+          const errors = await sut.validate(schema,{ name: "Lucas Fonseca"})
           expect(errors).toEqual({
                "age": makeMissingMessage('age'),
                "birthday": makeMissingMessage('birthday'),

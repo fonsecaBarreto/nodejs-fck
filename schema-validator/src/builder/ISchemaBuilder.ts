@@ -1,7 +1,7 @@
-import { BaseSchema } from "../protocols"
+import { ValidationSchema } from "../protocols"
 
 export namespace SchemaBuilder {
-    export type Schema = BaseSchema
+    export type Schema = ValidationSchema
     export type Properties = Record<string, { type: string, description?: string }>
     export type PropertiesHandler= {
         optional: () => PropertiesHandler
