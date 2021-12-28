@@ -55,6 +55,7 @@ describe("Schema builder", () =>{
                s.json("my_object")
                s.cep("cep")
                s.uuid("user_id")
+               s.email("emailFinanceiro").optional()
           })   
 
           expect(schema).toEqual({
@@ -67,7 +68,8 @@ describe("Schema builder", () =>{
                     some_list: { type: "array" },
                     my_object: { type: "json" },
                     cep: { type: "cep" },
-                    user_id: { type: "uuid" }
+                    user_id: { type: "uuid" },
+                    emailFinanceiro: { type: "email" }
                },
                required: ["name","age","isAdmin", "birthday", "some_list", "my_object", "cep", "user_id"]
           })

@@ -1,6 +1,6 @@
 import { SchemaValidator } from "./ISchemaValidator"
 export * from './ISchemaValidator'
-
+import * as EmailValidator from 'email-validator';
 export default class AppSchemaValidator implements SchemaValidator{
 
   constructor(){}
@@ -46,7 +46,7 @@ export default class AppSchemaValidator implements SchemaValidator{
         switch(type){
             case "cep": 
                 final_value = (value+"").replace(/[^\d]+/g,'');
-                break;
+            break;
             case "number": 
                 if(!isNaN(value)){ 
                     final_value = Number(value);
@@ -75,31 +75,41 @@ export default class AppSchemaValidator implements SchemaValidator{
     
         switch(type){
 
-        case "uuid" :{
-            const regexExp = /^[0-9a-fA-F]{8}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{12}$/gi;
-            if(!regexExp.test(value)) return false
-        };break;
+            case "email": {
+                try{
+                    const valido = EmailValidator.validate(value); 
+                    return valido
+                } catch(err){
+                    console.log("Email Validator: ", err)
+                    return false
+                }
+            };
 
-        case "json" :{
-            try { JSON.parse(value); } catch (e) { return false }
-        };break;
+            case "uuid" : {
+                const regexExp = /^[0-9a-fA-F]{8}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{12}$/gi;
+                if(!regexExp.test(value)) return false
+            };break;
 
-        case "cep" : {
-            const regex = /\b\d{8}\b/;
-            if(!regex.test(value)) return false
-        };break;
+            case "json" :{
+                try { JSON.parse(value); } catch (e) { return false }
+            };break;
 
-        case "date" : 
-            if( !(value instanceof Date) ) return false
-        ;break;
-        
-        case "hour" : var regex = /^([0-1]?[0-9]|2[0-3]):([0-5][0-9])(:[0-5][0-9])?$/;
-            if(!regex.test(value)) return false;
-        break;
+            case "cep" : {
+                const regex = /\b\d{8}\b/;
+                if(!regex.test(value)) return false
+            };break;
 
-        case "array": if( Array.isArray(value) === false ) return false; break;
+            case "date" : 
+                if( !(value instanceof Date) ) return false
+            ;break;
+            
+            case "hour" : var regex = /^([0-1]?[0-9]|2[0-3]):([0-5][0-9])(:[0-5][0-9])?$/;
+                if(!regex.test(value)) return false;
+            break;
 
-        default: if(type !== typeof value) return false; break;
+            case "array": if( Array.isArray(value) === false ) return false; break;
+
+            default: if(type !== typeof value) return false; break;
 
         }
         return true

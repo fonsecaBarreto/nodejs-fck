@@ -12,10 +12,10 @@ async function main(){
     console.log("esse é o Eschema:", s)
     const validator = new Schema.Validator()
 
-
     const erros = await validator.validate(s, {
         Nome:"Lucas Fonseca"
-    })
+    });
+
     if(erros){
         console.log("Erros foram", erros)
     }

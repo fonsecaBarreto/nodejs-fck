@@ -1,5 +1,7 @@
 import { NIL } from 'uuid'
-import SchemaHandler, { SchemaBuilder, SchemaValidator, makeInvalidMessage, makeMissingMessage } from '@/index'
+import "core-js/stable";
+import "regenerator-runtime/runtime";
+import SchemaHandler, { SchemaBuilder, SchemaValidator, makeInvalidMessage, makeMissingMessage } from 'fck-schema-validator'
 
 
 const makeSut = () => {
