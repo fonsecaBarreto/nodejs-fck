@@ -51,7 +51,7 @@ export default class AppSchemaValidator implements SchemaValidator{
                 if(!isNaN(value)){ 
                     final_value = Number(value);
                 };
-                break;
+            break;
             case "date": 
                 if(!isNaN(Date.parse(value))) { 
                     final_value = new Date(value);

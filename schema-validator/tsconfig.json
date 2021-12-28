@@ -3,6 +3,7 @@
         "outDir": "lib",
         "module": "commonjs",
         "target": "es2019", 
+        "lib":["es5","es6"],
         "declaration": true,                             
         "declarationMap": true,                          
         "sourceMap": true,  
@@ -16,9 +17,6 @@
             "@/*": [ "./src/*" ],
             "@tests/*": [  "./tests/*"  ]
         },
-
-/*      "suppressImplicitAnyIndexErrors": true,
-        "allowSyntheticDefaultImports": true */
     },
     "typeRoots": [
         "./@types",

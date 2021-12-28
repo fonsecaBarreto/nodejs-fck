@@ -1,17 +1,5 @@
 {    
-    "compilerOptions": {
-        "emitDeclarationOnly": true,
-        "declarationDir": "./lib/types",
-        "module": "commonjs",
-        "target": "es2019", 
-        "declaration": true,                             
-        "declarationMap": true,                           
-        "baseUrl": ".",
-        "rootDirs": ["src"],
-        "paths": {
-            "@/*": [ "./src/*" ],
-        }
-    },
-    "include": ["src",],
-    "exclude": ["node_modules, tests"]
+
+    "extends": "./tsconfig.json",
+    "exclude": ["node_modules", "tests"]
 }
