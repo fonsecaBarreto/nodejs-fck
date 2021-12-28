@@ -22,5 +22,6 @@ export interface SchemaBuilder{
     cep(key:string): SchemaBuilder.PropertiesHandler
     uuid(key:string): SchemaBuilder.PropertiesHandler
     email(key:string): SchemaBuilder.PropertiesHandler
+    phone(key:string): SchemaBuilder.PropertiesHandler
 }
 

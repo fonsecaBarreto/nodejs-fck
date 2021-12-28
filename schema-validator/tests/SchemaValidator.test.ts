@@ -34,6 +34,34 @@ const makeBody = (fields?:Record<string, any> , empty:boolean = true): Record<st
 
 describe("Schema builder", () =>{
 
+
+     describe("phone", () =>{
+
+          const schema = Builder.create(b=>{
+               b.phone("telefone").description("Numero de telefone")
+          })
+
+          test("Should set add null in params that were not found", async () =>{
+               const { sut } = makeSut()
+               const body = { }
+               await sut.validate(schema,body)
+               expect(body).toEqual({ telefone: null })
+          })
+
+          test("Should sanitize if any other caracters besides number were provided", async () =>{
+               const { sut } = makeSut()
+               const body = { telefone: "+55223-308344**&%3" }
+               await sut.validate(schema,body)
+               expect(body).toEqual({ telefone: "552233083443" })
+          })
+
+          test("Should return conflict message if invalid number were provided", async () =>{
+               const { sut } = makeSut()
+               const result = await sut.validate(schema, { telefone: "+23-34**&%3" })
+               expect(result).toEqual({ telefone: makeInvalidMessage("Numero de telefone")})
+          })   
+     })
+
      describe("Sanitize", () =>{
 
           const { sut, schema } = makeSut()

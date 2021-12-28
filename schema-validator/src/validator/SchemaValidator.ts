@@ -44,26 +44,26 @@ class AppSchemaValidator implements SchemaValidator{
         var final_value: any = value; 
 
         switch(type){
+
+            case "phone":  
+                final_value = (value+"").replace(/[^\d]+/g,''); 
+            break;
+
             case "cep": 
                 final_value = (value+"").replace(/[^\d]+/g,'');
             break;
+
             case "number": 
-                if(!isNaN(value)){ 
-                    final_value = Number(value);
-                };
+                if(!isNaN(value)){   final_value = Number(value); };
             break;
+
             case "date": 
-                if(!isNaN(Date.parse(value))) { 
-                    final_value = new Date(value);
-                };
-                break;
+                if(!isNaN(Date.parse(value))) { final_value = new Date(value); };
+            break;
+
             case "boolean": 
-                try{ 
-                    final_value = JSON.parse(value);
-                } catch(err){
-                    final_value = value;
-                }; 
-                break;
+                try{ final_value = JSON.parse(value); } catch(err){ final_value = value; }; 
+            break;
         }
 
         return body[field] = final_value; 
@@ -74,6 +74,13 @@ class AppSchemaValidator implements SchemaValidator{
     public async checkType( value:any, type:string): Promise<boolean>{
     
         switch(type){
+
+            case "phone" : {
+                if(isNaN(value) || value.length < 10 || value.length > 14){
+                  return false;
+                }
+            };break;
+      
 
             case "email": {
                 try{

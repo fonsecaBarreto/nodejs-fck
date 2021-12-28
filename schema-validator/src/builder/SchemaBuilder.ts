@@ -40,6 +40,7 @@ export default class AppSchemaBuilder implements SchemaBuilder {
     uuid = (key: string): SchemaBuilder.PropertiesHandler => this.pushProperty(key, 'uuid')
     string= (key:string): SchemaBuilder.PropertiesHandler => this.pushProperty(key, 'string')
     email= (key:string): SchemaBuilder.PropertiesHandler => this.pushProperty(key, 'email')
+    phone= (key:string): SchemaBuilder.PropertiesHandler => this.pushProperty(key, 'phone')
 
 
     public getSchema(): SchemaBuilder.Schema{
