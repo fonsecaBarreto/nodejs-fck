@@ -3,25 +3,17 @@
         "outDir": "lib",
         "module": "commonjs",
         "target": "es2019", 
-        "lib":["es5","es6"],
+        "declarationDir": "./lib/types",
         "declaration": true,                             
         "declarationMap": true,                          
         "sourceMap": true,  
         "allowJs": true,                                                         
         "esModuleInterop": true,                          
         "strict": true,                                  
-        "skipLibCheck": true,                            
+        "skipLibCheck": true,   
         "baseUrl": ".",
-        "rootDirs": ["src", "tests"],
-        "paths": {
-            "@/*": [ "./src/*" ],
-            "@tests/*": [  "./tests/*"  ]
-        },
+        "rootDirs": ["src"]                       
     },
-    "typeRoots": [
-        "./@types",
-        "./node_modules/@types"
-    ],
-    "include": ["src", "tests"],
-    "exclude": ["node_modules"]
+    "include": ["src" ],
+    "exclude": ["node_modules", "tests"],
 }

@@ -1,5 +1,4 @@
 import { SchemaBuilder  } from "./ISchemaBuilder";
-export * from './ISchemaBuilder'
 
 export default class AppSchemaBuilder implements SchemaBuilder {
 

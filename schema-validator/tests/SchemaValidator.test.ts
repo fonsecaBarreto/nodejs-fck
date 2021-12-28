@@ -1,9 +1,9 @@
 import { NIL } from 'uuid'
-import SchemaHandler, { SchemaBuilder, SchemaValidator, makeInvalidMessage, makeMissingMessage } from '@/index'
-
+import Builder, { SchemaBuilder } from '../src/builder'
+import Validator, { SchemaValidator, makeInvalidMessage, makeMissingMessage } from '../src/validator'
 
 const makeSut = () => {
-     const schema = SchemaHandler.Builder.create( (s: SchemaBuilder) => {
+     const schema = Builder.create( (s: SchemaBuilder) => {
           s.string("name")
           s.number("age")
           s.boolean("isAdmin")
@@ -13,7 +13,7 @@ const makeSut = () => {
           s.cep("cep")
           s.uuid("user_id")
      })  
-     const sut = new SchemaHandler.Validator()
+     const sut = new Validator()
      return {sut, schema}
 }
 
@@ -91,7 +91,7 @@ describe("Schema builder", () =>{
 
           describe("email", () =>{
 
-               const email_schema = SchemaHandler.Builder.create( (s: SchemaBuilder) => {
+               const email_schema = Builder.create( (s: SchemaBuilder) => {
                     s.email("meuEmail")
                })  
 
@@ -127,7 +127,7 @@ describe("Schema builder", () =>{
 
           describe("hour", () =>{
 
-               const hour_schema = SchemaHandler.Builder.create( (s: SchemaBuilder) => {
+               const hour_schema = Builder.create( (s: SchemaBuilder) => {
                     s.hour("hora_test")
                })  
 

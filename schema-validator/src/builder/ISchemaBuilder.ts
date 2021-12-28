@@ -1,7 +1,6 @@
-import { BaseSchema } from "@/protocols"
+import { BaseSchema } from "../protocols"
 
-/* Schema Builder */
-export namespace SchemaBuilder{
+export namespace SchemaBuilder {
     export type Schema = BaseSchema
     export type Properties = Record<string, { type: string, description?: string }>
     export type PropertiesHandler= {

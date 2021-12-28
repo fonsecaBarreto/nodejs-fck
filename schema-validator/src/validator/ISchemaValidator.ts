@@ -1,4 +1,4 @@
-import { BaseSchema } from "@/protocols";
+import { BaseSchema } from "../protocols";
 
 export namespace SchemaValidator {
       export type Schema = BaseSchema

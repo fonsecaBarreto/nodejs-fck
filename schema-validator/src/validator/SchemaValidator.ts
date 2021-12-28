@@ -1,7 +1,7 @@
 import { SchemaValidator } from "./ISchemaValidator"
-export * from './ISchemaValidator'
 import * as EmailValidator from 'email-validator';
-export default class AppSchemaValidator implements SchemaValidator{
+
+class AppSchemaValidator implements SchemaValidator{
 
   constructor(){}
 
@@ -116,13 +116,11 @@ export default class AppSchemaValidator implements SchemaValidator{
     }
 }
 
-/* Conflicts */ 
+export const makeMissingMessage = (field: string, missingMessage?: string) => missingMessage || `Campo '${field}' é obrigatório`
 
 
-export const makeMissingMessage = (field: string, missingMessage?: string) => {
-  return missingMessage || `Campo '${field}' é obrigatório`
-}
+export const makeInvalidMessage = (field: string, invalidMessage?:string) => invalidMessage || `Campo '${field}' contem valor inválido `
 
-export const makeInvalidMessage = (field: string, invalidMessage?:string) => {
-  return invalidMessage || `Campo '${field}' contem valor inválido `
-}
+
+
+export default AppSchemaValidator

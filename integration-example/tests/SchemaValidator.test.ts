@@ -1,11 +1,11 @@
-import SchemaHandler, { SchemaBuilder, SchemaValidator, makeInvalidMessage, makeMissingMessage } from 'fck-schema-validator'
+import { validator, builder, SchemaBuilder } from 'fck-schema-validator'
 
 const makeSut = () => {
-     const schema = SchemaHandler.Builder.create( (s: SchemaBuilder) => {
+     const schema = builder.create( (s: SchemaBuilder) => {
           s.string("name")
           s.number("age")
      })  
-     const sut = new SchemaHandler.Validator()
+     const sut = new validator()
      return { sut, schema }
 }
 

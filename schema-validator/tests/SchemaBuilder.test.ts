@@ -1,11 +1,11 @@
 
-import SchemaHandler, { SchemaBuilder } from '@/index'
+import Builder, { SchemaBuilder } from '../src/builder'
 
 describe("Schema builder", () =>{
 
      test("Should cretae a schema", () =>{
 
-          const schema = SchemaHandler.Builder.create( (s: SchemaBuilder ) => {
+          const schema = Builder.create( (s: SchemaBuilder ) => {
                s.string("name")
           })   
           expect(schema).toEqual({
@@ -17,7 +17,7 @@ describe("Schema builder", () =>{
           }) 
      })
      test("Should cretae a optional param", () =>{
-          const schema = SchemaHandler.Builder.create( (s: SchemaBuilder) => {
+          const schema = Builder.create( (s: SchemaBuilder) => {
                s.string("name").optional()
           })   
           expect(schema).toEqual({
@@ -30,7 +30,7 @@ describe("Schema builder", () =>{
      })
 
      test("Should description to params", () =>{
-          const schema = SchemaHandler.Builder.create( (s: SchemaBuilder) => {
+          const schema = Builder.create( (s: SchemaBuilder) => {
                s.string("name").optional().description("Descrição para o meu nome")
                s.string("nickName").description("Apelido")
           })   
@@ -46,7 +46,7 @@ describe("Schema builder", () =>{
      })
 
      test("Should create a schema", () =>{
-          const schema = SchemaHandler.Builder.create( (s: SchemaBuilder) => {
+          const schema = Builder.create( (s: SchemaBuilder) => {
                s.string("name")
                s.number("age")
                s.boolean("isAdmin")

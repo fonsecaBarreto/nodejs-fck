@@ -1,6 +1,5 @@
-import Validator from './schema-validator/SchemaValidator'
-import Builder from './schema-builder/SchemaBuilder'
-export * from './schema-validator/SchemaValidator'
-export * from './schema-builder/ISchemaBuilder'
+export * from './builder'
+export * from './validator'
 
-export default { Validator, Builder }
+export { default as Validator } from './validator'
+export { default as builder } from './builder'
