@@ -34,6 +34,74 @@ const makeBody = (fields?:Record<string, any> , empty:boolean = true): Record<st
 
 describe("Schema builder", () =>{
 
+     describe("cpf", () =>{
+
+          const schema = Builder.create(b=>{
+               b.cpf("meu_cpf").description("Meu Cpf")
+          })
+
+          test("Should set add null if no cpf were found", async () =>{
+               const { sut } = makeSut()
+               const body = { }
+               await sut.validate(schema, body)
+               expect(body).toEqual({ meu_cpf: null })
+          })
+
+          test("Should sanitize if any other caracters besides number were provided", async () =>{
+               const { sut } = makeSut()
+               const body = { meu_cpf: "123.3.2.-32-.3.155223-308344**&%3" }
+               await sut.validate(schema,body)
+               expect(body).toEqual({ meu_cpf: "123323231552233083443" })
+          })
+
+          test("Should return conflict message if invalid number were provided", async () =>{
+               const { sut } = makeSut()
+               const result = await sut.validate(schema, { meu_cpf: "asdasdasdasdasdas" })
+               expect(result).toEqual({ meu_cpf: makeInvalidMessage("Meu Cpf")})
+          })  
+
+          test("Should return null if a valid cpf were provided", async () =>{
+               const { sut } = makeSut()
+               const result = await sut.validate(schema, { meu_cpf: "717.079.890-52" })
+               expect(result).toEqual(null)
+          }) 
+     })
+
+
+     
+     describe("cnpj", () =>{
+
+          const schema = Builder.create(b=>{
+               b.cnpj("meu_cnpj").description("Meu CNPJ")
+          })
+
+          test("Should set add null if no CNPJ were found", async () =>{
+               const { sut } = makeSut()
+               const body = { }
+               await sut.validate(schema, body)
+               expect(body).toEqual({ meu_cnpj: null })
+          })
+
+          test("Should sanitize if any other caracters besides number were provided", async () =>{
+               const { sut } = makeSut()
+               const body = { meu_cnpj: "123.3.2.-32-.3.155223-308344**&%3" }
+               await sut.validate(schema,body)
+               expect(body).toEqual({ meu_cnpj: "123323231552233083443" })
+          })
+
+          test("Should return conflict message if invalid number were provided", async () =>{
+               const { sut } = makeSut()
+               const result = await sut.validate(schema, { meu_cnpj: "asdasdasdasdasdas" })
+               expect(result).toEqual({ meu_cnpj: makeInvalidMessage("Meu CNPJ")})
+          })  
+
+          test("Should return null if a valid CNPJ were provided", async () =>{
+               const { sut } = makeSut()
+               const result = await sut.validate(schema, { meu_cnpj: "09.582.469/0001-50" })
+               expect(result).toEqual(null)
+          }) 
+     })
+
 
      describe("phone", () =>{
 
@@ -60,6 +128,12 @@ describe("Schema builder", () =>{
                const result = await sut.validate(schema, { telefone: "+23-34**&%3" })
                expect(result).toEqual({ telefone: makeInvalidMessage("Numero de telefone")})
           })   
+
+          test("Should return null if a valid phone were provided", async () =>{
+               const { sut } = makeSut()
+               const result = await sut.validate(schema, { telefone: "0123456789" })
+               expect(result).toEqual(null)
+          }) 
      })
 
      describe("Sanitize", () =>{

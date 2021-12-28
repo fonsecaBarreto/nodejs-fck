@@ -41,6 +41,8 @@ export default class AppSchemaBuilder implements SchemaBuilder {
     string= (key:string): SchemaBuilder.PropertiesHandler => this.pushProperty(key, 'string')
     email= (key:string): SchemaBuilder.PropertiesHandler => this.pushProperty(key, 'email')
     phone= (key:string): SchemaBuilder.PropertiesHandler => this.pushProperty(key, 'phone')
+    cpf= (key:string): SchemaBuilder.PropertiesHandler => this.pushProperty(key, 'cpf')
+    cnpj= (key:string): SchemaBuilder.PropertiesHandler => this.pushProperty(key, 'cnpj')
 
 
     public getSchema(): SchemaBuilder.Schema{

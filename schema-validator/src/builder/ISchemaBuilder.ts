@@ -23,5 +23,7 @@ export interface SchemaBuilder{
     uuid(key:string): SchemaBuilder.PropertiesHandler
     email(key:string): SchemaBuilder.PropertiesHandler
     phone(key:string): SchemaBuilder.PropertiesHandler
+    cnpj(key:string): SchemaBuilder.PropertiesHandler
+    cpf(key:string): SchemaBuilder.PropertiesHandler
 }
 

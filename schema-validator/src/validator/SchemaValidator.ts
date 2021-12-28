@@ -1,5 +1,6 @@
 import { SchemaValidator } from "./ISchemaValidator"
 import * as EmailValidator from 'email-validator';
+import { cpf, cnpj } from 'cpf-cnpj-validator'; 
 
 class AppSchemaValidator implements SchemaValidator{
 
@@ -37,37 +38,35 @@ class AppSchemaValidator implements SchemaValidator{
 
         Object.keys(schema.properties).forEach( field => {
 
-        var value = initialBody[field]
-        if(value === undefined || value === "" || value == null ) return body[field] = null
+            var value = initialBody[field]
+            if(value === undefined || value === "" || value == null ) return body[field] = null
 
-        const { type } = schema.properties[field]
-        var final_value: any = value; 
+            const { type } = schema.properties[field]
+            var final_value: any = value; 
 
-        switch(type){
 
-            case "phone":  
-                final_value = (value+"").replace(/[^\d]+/g,''); 
-            break;
-
-            case "cep": 
+            if(["cnpj", "cpf", "phone", "cep"].includes(type)){
                 final_value = (value+"").replace(/[^\d]+/g,'');
-            break;
+            }else{
 
-            case "number": 
-                if(!isNaN(value)){   final_value = Number(value); };
-            break;
+                switch(type){
+                    case "number": 
+                    if(!isNaN(value)){   final_value = Number(value); };
+                    break;
+                    
+                    case "date": 
+                    if(!isNaN(Date.parse(value))) { final_value = new Date(value); };
+                    break;
+                    
+                    case "boolean": 
+                    try{ final_value = JSON.parse(value); } catch(err){ final_value = value; }; 
+                    break;
+                }
+                
+            }
 
-            case "date": 
-                if(!isNaN(Date.parse(value))) { final_value = new Date(value); };
-            break;
+            return body[field] = final_value; 
 
-            case "boolean": 
-                try{ final_value = JSON.parse(value); } catch(err){ final_value = value; }; 
-            break;
-        }
-
-        return body[field] = final_value; 
-    
         }) 
     }
 
@@ -75,21 +74,20 @@ class AppSchemaValidator implements SchemaValidator{
     
         switch(type){
 
+            case "cpf" : {
+                try{ return cpf.isValid(value)  }catch(err){ return false }
+            };
+            
+            case "cnpj" : {
+                try{  return cnpj.isValid(value) }catch(err){ return false }
+            };
+
             case "phone" : {
-                if(isNaN(value) || value.length < 10 || value.length > 14){
-                  return false;
-                }
+                if( isNaN(value) || value.length < 10 || value.length > 14){ return false; }
             };break;
       
-
             case "email": {
-                try{
-                    const valido = EmailValidator.validate(value); 
-                    return valido
-                } catch(err){
-                    console.log("Email Validator: ", err)
-                    return false
-                }
+                try{ return EmailValidator.validate(value); } catch(err){ return false }
             };
 
             case "uuid" : {

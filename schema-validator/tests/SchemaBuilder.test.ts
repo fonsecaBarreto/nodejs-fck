@@ -56,6 +56,9 @@ describe("Schema builder", () =>{
                s.cep("cep")
                s.uuid("user_id")
                s.email("emailFinanceiro").optional()
+               s.phone("telefone")
+               s.cpf("cpf")
+               s.cnpj("cnpj")
           })   
 
           expect(schema).toEqual({
@@ -69,9 +72,12 @@ describe("Schema builder", () =>{
                     my_object: { type: "json" },
                     cep: { type: "cep" },
                     user_id: { type: "uuid" },
-                    emailFinanceiro: { type: "email" }
+                    emailFinanceiro: { type: "email" },
+                    telefone: { type: "phone" },
+                    cpf: { type: "cpf" },
+                    cnpj: { type: "cnpj" } 
                },
-               required: ["name","age","isAdmin", "birthday", "some_list", "my_object", "cep", "user_id"]
+               required: ["name","age","isAdmin", "birthday", "some_list", "my_object", "cep", "user_id", "telefone", "cpf", "cnpj"]
           })
      }) 
 })
