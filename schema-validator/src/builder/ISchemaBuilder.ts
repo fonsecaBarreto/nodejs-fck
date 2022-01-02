@@ -2,8 +2,8 @@ import { ValidationSchema } from "../protocols"
 
 export namespace SchemaBuilder {
     export type Schema = ValidationSchema
-    export type Properties = Record<string, { type: string, description?: string }>
-    export type PropertiesHandler= {
+    export type Properties = Record<string, Schema>
+    export type PropertiesHandler = {
         optional: () => PropertiesHandler
         description: (desc:string) => PropertiesHandler
     }
@@ -11,7 +11,7 @@ export namespace SchemaBuilder {
 
 export interface SchemaBuilder{
     getSchema(): SchemaBuilder.Schema
-    pushProperty(key:string, type?: string): SchemaBuilder.PropertiesHandler
+    pushProperty(key:string, schema: SchemaBuilder.Schema): SchemaBuilder.PropertiesHandler
     string(key:string): SchemaBuilder.PropertiesHandler
     number(key:string): SchemaBuilder.PropertiesHandler
     boolean(key:string): SchemaBuilder.PropertiesHandler
@@ -25,5 +25,6 @@ export interface SchemaBuilder{
     phone(key:string): SchemaBuilder.PropertiesHandler
     cnpj(key:string): SchemaBuilder.PropertiesHandler
     cpf(key:string): SchemaBuilder.PropertiesHandler
+    object(key: string, schema: SchemaBuilder.Schema ): SchemaBuilder.PropertiesHandler
 }
 

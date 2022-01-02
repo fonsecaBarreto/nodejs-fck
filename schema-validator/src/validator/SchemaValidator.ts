@@ -8,40 +8,47 @@ class AppSchemaValidator implements SchemaValidator{
 
     public async validate( schema: SchemaValidator.Schema, body: SchemaValidator.Params): Promise<SchemaValidator.Errors | null>   {
 
-        this.sanitize(schema, body)
+
         var params: SchemaValidator.Errors = {}
-    
-        await Promise.all(Object.keys(schema.properties).map( async field => {
+        var properties = schema?.properties ?? {}
+        var required = schema?.required ?? []
 
-            const { type, description } = schema.properties[field] 
-            const value = body[field]
+        this.sanitize(properties, body);
 
-            if ( value === null ){ 
-                if( !schema.required.includes(field)) return;
+        await Promise.all(Object.keys(properties).map( async field => {
+            const { type, description } = properties[field] 
 
+            if ( body[field] === null ){ 
+                if( !required.includes(field)) return;
                 return params[field]= makeMissingMessage(description|| field)
             } 
 
-            let IsTypeValid = await this.checkType( value, type )
+            let IsTypeValid = await this.checkType(body[field], type )
             if(IsTypeValid === false) return params[field] = makeInvalidMessage(description || field) 
-        
+
+            if(type == "object"){
+                var subParams:SchemaValidator.Errors | null = await this.validate(properties[field], body[field]);
+                if(subParams != null) {
+                    params[field] = subParams;
+                }
+            } 
         }))
 
         return Object.keys(params).length > 0 ? params : null; 
     }
 
-    public sanitize (schema: SchemaValidator.Schema, body: Record<string,any>): void {
+    public sanitize (properties: Record<string, SchemaValidator.Schema> , body: Record<string,any>): void {
 
-        Object.keys(body).map( param => { if(!schema.properties[param]){ delete body[param] } })
+        Object.keys(body).map( param => { if(!properties[param]){ delete body[param] } })
         
         var initialBody = { ...body } // clone body
 
-        Object.keys(schema.properties).forEach( field => {
+        Object.keys(properties).forEach( field => {
 
             var value = initialBody[field]
             if(value === undefined || value === "" || value == null ) return body[field] = null
 
-            const { type } = schema.properties[field]
+            const { type } = properties[field]
             var final_value: any = value; 
 
 
@@ -83,7 +90,7 @@ class AppSchemaValidator implements SchemaValidator{
             };
 
             case "phone" : {
-                if( isNaN(value) || value.length < 10 || value.length > 14){ return false; }
+                if( isNaN(value) || value.length < 9 || value.length > 16 ){ return false; }
             };break;
       
             case "email": {
@@ -98,6 +105,12 @@ class AppSchemaValidator implements SchemaValidator{
             case "json" :{
                 try { JSON.parse(value); } catch (e) { return false }
             };break;
+
+            case "object":{
+                /* console.log()
+                try { JSON.parse(value); } catch (e) { return false } */
+                if(type !== typeof value) return false;
+            };break
 
             case "cep" : {
                 const regex = /\b\d{8}\b/;
@@ -122,8 +135,6 @@ class AppSchemaValidator implements SchemaValidator{
 }
 
 export const makeMissingMessage = (field: string, missingMessage?: string) => missingMessage || `Campo '${field}' é obrigatório`
-
-
 export const makeInvalidMessage = (field: string, invalidMessage?:string) => invalidMessage || `Campo '${field}' contem valor inválido `
 
 

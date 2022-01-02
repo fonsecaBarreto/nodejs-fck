@@ -16,7 +16,7 @@ describe("Schema builder", () =>{
                required: ["name"]
           }) 
      })
-     test("Should cretae a optional param", () =>{
+    test("Should cretae a optional param", () =>{
           const schema = builder.create( (s: SchemaBuilder) => {
                s.string("name").optional()
           })   
@@ -28,7 +28,6 @@ describe("Schema builder", () =>{
                required: []
           }) 
      })
-
      test("Should description to params", () =>{
           const schema = builder.create( (s: SchemaBuilder) => {
                s.string("name").optional().description("Descrição para o meu nome")
@@ -79,5 +78,32 @@ describe("Schema builder", () =>{
                },
                required: ["name","age","isAdmin", "birthday", "some_list", "my_object", "cep", "user_id", "telefone", "cpf", "cnpj"]
           })
+     }) 
+
+     test("Should create a object schema", () =>{
+          const schema = builder.create( (s: SchemaBuilder) => {
+               s.string("name")
+               s.object("endereco", builder.create((ss) =>{
+                    ss.string("rua")
+                    ss.string("numero")
+               }))
+          })   
+
+          expect(schema).toEqual({
+               type: 'object',
+               properties: {
+                    name: { type: "string" },
+                    endereco: { 
+                         type: "object",
+                         properties: {
+                              rua: { type: "string"},
+                              numero: { type: "string"}
+                         },
+                         required: ["rua", "numero"]
+                     } ,
+               },
+               required: ["name","endereco"]
+          })
+
      }) 
 })

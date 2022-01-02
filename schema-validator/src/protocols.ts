@@ -1,5 +1,6 @@
 export type ValidationSchema = {
     type: string,
-    properties: Record<string, { type: string, description?: string }> 
-    required: string[]
+    properties?: Record<string, ValidationSchema> 
+    required?: string[],
+    description?: string
 }
